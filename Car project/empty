@@ -1,1 +1,82 @@
 ##empty
+
+
+//MY CAR CODE
+
+#include <NewPing.h>
+
+#define TRIGGER_PIN  12
+#define ECHO_PIN     11
+#define MAX_DISTANCE 200
+
+NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
+
+/*
+   Using Arduino to control both halves of an H-bridge
+   and two motors
+
+   This program corresponds to the schematics here:
+   Arduino Tutorial: How to use an H-Bridge with Arduino to control a permanent magnet DC motor
+   and here:
+   Arduino Tutorial: How to use an H-Bridge with Arduino to control a permanent magnet DC motor
+*/
+
+// The "const" keyword prevents these variables from changing
+// Control pins for the left half of the H-bridge
+// I would add the word "left" or "right to the variable
+// names but I want to use exactly the same names that are on
+// the schematics
+const int enable1 = 6; // PWM pin for speed control
+const int in1 = 4;
+const int in2 = 2;
+// Control pins for the right half of the H-bridge
+const int enable2 = 9; // PWM pin for speed control
+const int in3 = 8;
+const int in4 = 7;
+
+void setup () {
+  pinMode( enable1, OUTPUT);
+  pinMode( in1, OUTPUT);
+  pinMode( in2, OUTPUT);
+
+  pinMode( enable2, OUTPUT);
+  pinMode( in3, OUTPUT);
+  pinMode( in4, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop () {
+
+  int distance = sonar.ping_cm(); //This reads the sonar and translate to CM
+  if (distance > 25 || distance == 0) {
+    Serial.print("Both motors forward at a medium high speed");
+    // right motor
+    digitalWrite (in1, LOW);
+    digitalWrite (in2, HIGH);
+    analogWrite (enable1, 200);
+    // left motor
+    digitalWrite (in3, LOW);
+    digitalWrite (in4, HIGH);
+    analogWrite (enable2, 200);
+  } else {
+    //if reading is close then car backs up and turns for 1 second.
+    digitalWrite (in1, LOW);
+    digitalWrite (in2, LOW);
+    analogWrite (enable1, 200);
+    // left motor
+    digitalWrite (in3, HIGH);
+    digitalWrite (in4, LOW);
+    analogWrite (enable2, 200);
+  delay (1000);
+     
+   
+ 
+
+    
+
+  }
+
+
+
+
+}
