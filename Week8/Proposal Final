@@ -1,0 +1,8 @@
+Incorporating the use of light sensors, LEDS and sound. 
+
+Using Multiple Light Sensors concealed in a container with a finger print size hole (Think Flute)
+
+If light sensor is covered it makes a noise of a cetain pitch or starts to play a loop. Each time a sensor reads no light
+its starts a counter which correlates to an LED light diode or multiple. To create a pattern. This means each time a hole 
+is covered it could correlate to a new light display or sound pattern. 
+
